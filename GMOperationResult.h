@@ -7,9 +7,9 @@
 
 
 #import <Foundation/Foundation.h>
-#import "ETNetworkManager.h"
+#import "GMNetworkManager.h"
 
-@interface ETOperationResult : NSObject
+@interface GMOperationResult : NSObject
 
 @property NSUInteger type;
 @property NSUInteger httpCode;

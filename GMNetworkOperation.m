@@ -71,15 +71,12 @@
 	} else {
 	}
 	
-    if (UIAppDelegate.apiKey != nil) {
-        [request setValue:UIAppDelegate.apiKey forHTTPHeaderField:@"APIKEY"];
-    }
     
     NSString *version = [NSString stringWithFormat:@"%@-%@",
         [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"],
         [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
 
-    [request setValue:version forHTTPHeaderField:@"TASTYVER"];
+    [request setValue:version forHTTPHeaderField:@"APP_VERSION"];
     
     [request setHTTPMethod:_httpMethod];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -89,14 +86,14 @@
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
 
     if ([self isCancelled]) {
-        DLog(@"Operation is cancelled");
+        NSLog(@"Operation is cancelled");
         return;
     }
 
     //NSLog(@"* RES %i %@", [response statusCode], _url);
 
 	// Build the result
-	self.result = [ETOperationResult new];
+	self.result = [GMOperationResult new];
 	_result.httpCode = [response statusCode];
 	_result.parameters = _parameters;
 	_result.url = _url;
@@ -120,7 +117,7 @@
 		} else if (error != nil) {
 			[errorInfo setObject:@"Connection Error" forKey:NSLocalizedDescriptionKey];
 			[errorInfo setObject:error.localizedDescription forKey:NSLocalizedFailureReasonErrorKey];
-            DLog(@"Connection Error, %@", error);
+            NSLog(@"Connection Error, %@", error);
 			
 		} else {
             NSLog(@"* Error %i %@", _result.httpCode, responseString);
@@ -168,7 +165,7 @@
 				case 502:
 				case 503:
 				case 504:
-                    DLog(@"* 50x Error from server \n\n %@ \n\n", responseString);
+                    NSLog(@"* 50x Error from server \n\n %@ \n\n", responseString);
 					[errorInfo setObject:@"Server Error" forKey:NSLocalizedDescriptionKey];
 					[errorInfo setObject:[NSString stringWithFormat:@"Error attempting to communicate to server (%i).  Please try again later.", _result.httpCode] forKey:NSLocalizedFailureReasonErrorKey];
 					break;

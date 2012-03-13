@@ -37,7 +37,7 @@ NSString *const HTTPDelete = @"DELETE";
           NSMutableString *args = [NSMutableString stringWithString:@"?"];
   		for (NSString *key in parameters) {
               if ([parameters objectForKey:key] == [NSNull null]) {
-                  DLog(@"Null value for %@ skipping", key);
+                  NSLog(@"Null value for %@ skipping", key);
                   continue;
               }
               NSString *value = [[parameters objectForKey:key] urlEncodedString];
@@ -80,7 +80,7 @@ NSString *const HTTPDelete = @"DELETE";
 
 - (void)networkOperationResult:(GMOperationResult *)result {
     if (result.error) {
-        DLog(@"NetOpp Error");
+        NSLog(@"NetOpp Error");
         OperationCallbackBlock block = (OperationCallbackBlock)result.completion;
         block(result);
         
