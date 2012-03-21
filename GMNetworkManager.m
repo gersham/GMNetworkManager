@@ -17,6 +17,7 @@ static GMNetworkManager *shared = nil;
 @synthesize lastAlertTime = _lastAlertTime;
 @synthesize alertShown = _alertShown;
 @synthesize networkQueue = _networkQueue;
+@synthesize defaultHeaders = _defaultHeaders;
 
 NSString *const HTTPPost = @"POST";
 NSString *const HTTPPut = @"PUT";
@@ -145,6 +146,7 @@ NSString *const HTTPDelete = @"DELETE";
 	if ((self = [super init])) {
         self.networkQueue = [NSOperationQueue new];
         [self.networkQueue setMaxConcurrentOperationCount:5];
+        self.defaultHeaders = [NSMutableDictionary dictionary];
 	}
 	return self;
 }

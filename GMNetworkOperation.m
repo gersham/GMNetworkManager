@@ -78,6 +78,12 @@
 
     [request setValue:version forHTTPHeaderField:@"APP_VERSION"];
     
+    // Set headers from the network manager
+    NSMutableDictionary *defaultHeaders = [SharedNetworkManager.defaultHeaders mutableCopy];
+    for (NSString *key in defaultHeaders.allKeys) {
+        [request setValue:[defaultHeaders valueForKey:key] forHTTPHeaderField:key];
+    }
+    
     [request setHTTPMethod:_httpMethod];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
 

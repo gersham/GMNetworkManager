@@ -28,6 +28,7 @@ typedef void (^OperationCallbackBlock)(GMOperationResult *);
 @property (nonatomic, strong) NSString *apiEndpoint;
 @property (nonatomic, strong) NSDate *lastAlertTime;
 @property (nonatomic, assign) BOOL alertShown;
+@property (nonatomic, strong) NSMutableDictionary *defaultHeaders;
 
 - (void)operationForPath:(NSString *)path 
               httpMethod:(NSString *)httpMethod
