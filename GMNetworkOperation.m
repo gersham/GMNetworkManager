@@ -41,7 +41,7 @@
         return;
     }
     
-	//NSLog(@"* REQ %@", _url);
+	NSLog(@"* REQ %@", _url);
 		
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 	
@@ -63,6 +63,8 @@
 	// Regular POST/PUT
 	} else if (self.httpMethod == @"POST" || self.httpMethod == @"PUT") {		
 		
+        NSLog(@"* PARAMETERS %@", _parameters);
+
         NSString *formPostParams = [self encodeFormPostParameters:_parameters];
         [request setValue: @"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField: @"Content-Type"];
         [request setHTTPBody:[formPostParams dataUsingEncoding:NSUTF8StringEncoding]];
