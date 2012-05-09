@@ -230,7 +230,11 @@
     
     NSString *name = [keys nextObject];
     while (nil != name) {
-        NSString *encodedValue = [[postParameters objectForKey:name] urlEncodedString];
+        
+        NSString *encodedValue = [NSString stringWithString:[postParameters valueForKey:name]];
+        if ([encodedValue isMemberOfClass:[NSString class]]) {
+            encodedValue = [encodedValue urlEncodedString];
+        }
         
         [formPostParams appendString: name];
         [formPostParams appendString: @"="];
